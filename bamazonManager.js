@@ -6,9 +6,9 @@ var connection = mysql.createConnection({
     host: "localhost",
     port: 8889,
     // put in your user ID here
-    user: " ",
+    user: "",
     // put in your password here
-    password: " ",
+    password: "",
     database: "bamazon_db"
 });
 connection.connect((err) => {

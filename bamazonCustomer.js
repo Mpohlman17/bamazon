@@ -6,9 +6,9 @@ var connection = mysql.createConnection({
   host: "localhost",
   port: 8889,
   // put in your user ID here
-  user: " ",
+  user: "",
   // put in your password here
-  password: " ",
+  password: "",
   database: "bamazon_db"
 });
 connection.connect((err) => {
@@ -84,7 +84,7 @@ function promptUserPurchase() {
         var productData = res[0];
         // If have quantity requested process transaction
         if (quantity <= productData.inventory_quantity) {
-          console.log('Success!!! We are able to fulfill your order today');
+          console.log('\nSuccess!!! We are able to fulfill your order today\n');
 
           // Construct the updating query string
           var updateQueryStr = 'UPDATE products SET inventory_quantity = ' + (productData.inventory_quantity - quantity) + ' WHERE item_id = ' + product;
@@ -94,7 +94,7 @@ function promptUserPurchase() {
             if (err) throw err;
 
             console.log('Your order has been placed! Your total is $' + productData.price * quantity);
-            console.log('Thank you for shopping with us today!');
+            console.log('\nThank you for shopping with us today!');
             console.log("\n---------------------------------------------------------------------\n");
 
             // End the database connection

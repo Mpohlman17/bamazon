@@ -27,3 +27,9 @@ check on what current inventory is currently low,
 and adding new products to the Bamazon store.
 
 Product information is updated live into MYSQL.
+
+** Customer video
+https://drive.google.com/file/d/1Im4i6SoQUSkJ2Vu7JUlWss84ZC2g0QW5/view
+
+** Manager video
+https://drive.google.com/file/d/1CcolEbyIcWrpsO7ZxaKKmetbJyqY3fBl/view
