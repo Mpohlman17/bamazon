@@ -8,10 +8,10 @@ CREATE TABLE products (
 	product_name TEXT NOT NULL,
 	department_name TEXT NOT NULL,
 	price DECIMAL(2) NOT NULL,
-	stock_quantity INT NOT NULL,
+	inventory_quantity INT NOT NULL,
 	PRIMARY KEY (item_id)
 );
-INSERT INTO products (product_name, department_name, price, stock_quantity)
+INSERT INTO products (product_name, department_name, price, inventory_quantity)
 VALUES ('Red Bull', 'Grocery', 2.99, 750),
 ('Balance Protine Bars 12 pack', 'Grocery', 10.99, 106),
 ('Red Rocket Dog Collar', 'Pet Supplies', 11.99, 150),

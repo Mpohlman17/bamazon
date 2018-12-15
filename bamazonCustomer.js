@@ -6,9 +6,9 @@ var connection = mysql.createConnection({
   host: "localhost",
   port: 8889,
   // put in your user ID here
-  user: "",
+  user: " ",
   // put in your password here
-  password: "",
+  password: " ",
   database: "bamazon_db"
 });
 connection.connect((err) => {
@@ -22,19 +22,19 @@ connection.connect((err) => {
 var displayProducts = function () {
   connection.query(`SELECT * FROM products`, (err, res) => {
     var listTable = new Table({
-      head: ['Item ID', 'Product Name', 'Price'],
-      colWidths: [10, 45, 12]
+      head: ['Item ID', 'Product Name', 'Price', 'Quantity'],
+      colWidths: [10, 45, 12, 12]
     });
 
     for (var i = 0; i < res.length; i++) {
-      listTable.push([res[i].item_id, res[i].product_name, `$${res[i].price}`]);
+      listTable.push([res[i].item_id, res[i].product_name, `$${res[i].price}`, res[i].inventory_quantity]);
     }
 
     console.log(`\n\n${listTable.toString()}\n\n`);
     promptUserPurchase();
   });
 };
-
+// nameing sure user input is a true integer with no decimal or 0
 function validateInput(value) {
   var integer = Number.isInteger(parseFloat(value));
   var numcheck = Math.sign(value);
@@ -64,9 +64,9 @@ function promptUserPurchase() {
       validate: validateInput,
       filter: Number
     }
-  ]).then((input) => {
-    var product = input.item_id;
-    var quantity = input.quantity;
+  ]).then((answers) => {
+    var product = answers.item_id;
+    var quantity = answers.quantity;
 
     // Query db to confirm that the given item ID exists in the desired quantity
     var queryStr = 'SELECT * FROM products WHERE ?';
@@ -83,11 +83,11 @@ function promptUserPurchase() {
       } else {
         var productData = res[0];
         // If have quantity requested process transaction
-        if (quantity <= productData.stock_quantity) {
+        if (quantity <= productData.inventory_quantity) {
           console.log('Success!!! We are able to fulfill your order today');
 
           // Construct the updating query string
-          var updateQueryStr = 'UPDATE products SET stock_quantity = ' + (productData.stock_quantity - quantity) + ' WHERE item_id = ' + product;
+          var updateQueryStr = 'UPDATE products SET inventory_quantity = ' + (productData.inventory_quantity - quantity) + ' WHERE item_id = ' + product;
 
           // Update the inventory and inform customer of their bill of sale
           connection.query(updateQueryStr, function (err, res) {
